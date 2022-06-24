@@ -10,11 +10,11 @@
       </span>
       <span>|</span>
       <span>
-        <RouterLink to="/asd">. . .</RouterLink>
+        <RouterLink to="/admin">Admin</RouterLink>
       </span>
     </div>
     <div class="menu-dirieto">
-      <span>Sair</span>
+      <span> <RounterLink to="/login">Login</RounterLink></span>
     </div>
   </header>
 </template>

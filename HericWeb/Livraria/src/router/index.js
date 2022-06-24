@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import CarrinhoView from "../views/CarrinhoView.vue";
-import AsdView from "../views/AsdView.vue";
+import AdminView from "../views/AdminView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,9 +17,9 @@ const router = createRouter({
       component: CarrinhoView,
     },
     {
-      path: "/asd",
-      name: "asd",
-      component: AsdView,
+      path: "/admin",
+      name: "admin",
+      component: AdminView,
     },
   ],
 });
