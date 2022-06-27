@@ -1,7 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import CarrinhoView from "../views/CarrinhoView.vue";
-import AdminView from "../views/AdminView.vue";
+import LivroView from "../views/LivroView.vue";
+import LoginView from "../views/LoginView.vue";
+import EditoraView from "../views/EditoraView.vue";
+import CategoriaView from "../views/CategoriaView.vue";
+import AutorView from "../views/AutorView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,14 +15,29 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/carrinho",
-      name: "carrinho",
-      component: CarrinhoView,
+      path: "/livro",
+      name: "livro",
+      component: LivroView,
     },
     {
-      path: "/admin",
-      name: "admin",
-      component: AdminView,
+      path: "/login",
+      name: "login",
+      component: LoginView,
+    },
+    {
+      path: "/editora",
+      name: "editora",
+      component: EditoraView,
+    },
+    {
+      path: "/categoria",
+      name: "categoria",
+      component: CategoriaView,
+    },
+    {
+      path: "/autor",
+      name: "autor",
+      component: AutorView,
     },
   ],
 });

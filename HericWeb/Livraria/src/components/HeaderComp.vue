@@ -6,15 +6,25 @@
       </span>
       <span>|</span>
       <span>
-        <RouterLink to="/carrinho">Carrinho</RouterLink>
+        <RouterLink to="/livro">Livro</RouterLink>
       </span>
       <span>|</span>
       <span>
-        <RouterLink to="/admin">Admin</RouterLink>
+        <RouterLink to="/categoria">Categoria</RouterLink>
+      </span>
+      <span>|</span>
+      <span>
+        <RouterLink to="/autor">Autor</RouterLink>
+      </span>
+      <span>|</span>
+      <span>
+        <RouterLink to="/editora">Editora</RouterLink>
       </span>
     </div>
-    <div class="menu-dirieto">
-      <span> <RounterLink to="/login">Login</RounterLink></span>
+    <div class="menu-direito">
+      <span>
+        <RouterLink to="/login">Login</RouterLink>
+      </span>
     </div>
   </header>
 </template>
