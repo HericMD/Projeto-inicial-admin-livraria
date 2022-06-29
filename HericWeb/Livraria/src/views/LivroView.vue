@@ -2,6 +2,7 @@
 export default {
   data() {
     return {
+      novo_categoria: "",
       livros: [],
     };
   },
@@ -29,7 +30,14 @@ export default {
     </div>
     <div class="form-input" @keydown.enter="add">
       <input type="text" placeholder="Livro" v-model="novo_livro" />
-      <input type="text" placeholder="Categoria" v-model="novo_categoria" />
+      <select name="Categoria" v-model="novo_categoria">
+        <option value="" disabled selected>Selecione a categoria</option>
+        <option value="Ação">Ação</option>
+        <option value="Didático">Didático</option>
+        <option value="Fantasia">Fantasia</option>
+        <option value="Ficção">Ficção</option>
+        <option value="Horror">Horror</option>
+      </select>
       <input type="text" placeholder="Autor" v-model="novo_autor" />
       <input type="text" placeholder="Editora" v-model="novo_editora" />
 
