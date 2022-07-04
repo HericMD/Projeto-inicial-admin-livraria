@@ -42,7 +42,7 @@ export default {
             <td>{{ livro.autor }}</td>
             <td>
               <button @click="excluir(livro)">
-                <img src="src/assets/img/lixo-icon.png" />
+                <img src="@/assets/img/lixo-icon.png" />
               </button>
             </td>
           </tr>
