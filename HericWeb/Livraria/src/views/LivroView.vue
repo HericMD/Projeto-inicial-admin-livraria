@@ -1,21 +1,37 @@
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      novo_categoria: "",
       livros: [],
+      novo_nome: "",
+      novo_categoria: "",
+      novo_autor: "",
+      novo_editora: "",
     };
   },
+
+  async created() {
+    const livros = await axios.get("http://localhost:4000/livros");
+    this.livros = livros.data;
+  },
+
   methods: {
-    add() {
-      this.livros.push({
+    async add() {
+      const livro = {
         editora: this.novo_editora,
         categoria: this.novo_categoria,
         autor: this.novo_autor,
-        nome: this.novo_livro,
-      });
+        nome: this.novo_nome,
+      };
+      const livro_criado = await axios.post(
+        "http://localhost:4000/livros",
+        livro
+      );
+      this.livros.push(livro_criado.data);
     },
-    excluir(livro) {
+    async excluir(livro) {
+      await axios.delete(`http://localhost:4000/livros/${livro.id}`);
       const indice = this.livros.indexOf(livro);
       this.livros.splice(indice, 1);
     },
@@ -29,7 +45,7 @@ export default {
       <h2>Gerenciamento de livros</h2>
     </div>
     <div class="form-input" @keydown.enter="add">
-      <input type="text" placeholder="Livro" v-model="novo_livro" />
+      <input type="text" placeholder="Livro" v-model="novo_nome" />
       <select name="Categoria" v-model="novo_categoria">
         <option value="" disabled selected>Selecione a categoria</option>
         <option value="Ação">Ação</option>

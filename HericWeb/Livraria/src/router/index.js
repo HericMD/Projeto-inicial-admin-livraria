@@ -15,8 +15,8 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/livro",
-      name: "livro",
+      path: "/livros",
+      name: "livros",
       component: LivroView,
     },
     {

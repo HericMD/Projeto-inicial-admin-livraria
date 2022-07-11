@@ -1,20 +1,32 @@
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      livros: [],
+      autores: [],
       novo_autor: "",
     };
   },
+  async created() {
+    const autores = await axios.get("http://localhost:4000/autores");
+    this.autores = autores.data;
+  },
+
   methods: {
-    add() {
-      this.livros.push({
-        autor: this.novo_autor,
-      });
+    async add() {
+      const autor = {
+        nome: this.novo_autor,
+      };
+      const autor_criado = await axios.post(
+        "http://localhost:4000/autores",
+        autor
+      );
+      this.autores.push(autor_criado.data);
+      },
     },
-    excluir(livro) {
-      const indice = this.livros.indexOf(livro);
-      this.livros.splice(indice, 1);
+    excluir(autor) {
+      const indice = this.autores.indexOf(autor);
+      this.autores.splice(indice, 1);
     },
   },
 };
@@ -30,7 +42,7 @@ export default {
       <button @click="add">Adicionar Autor</button>
     </div>
     <div class="list-table">
-      <table v-if="livros.length > 0">
+      <table v-if="autores.length > 0">
         <thead>
           <tr>
             <th>Autores</th>
@@ -38,10 +50,10 @@ export default {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="livro in livros" :key="livro.id">
-            <td>{{ livro.autor }}</td>
+          <tr v-for="autor in autores" :key="autor.id">
+            <td>{{ autor.autor }}</td>
             <td>
-              <button @click="excluir(livro)">
+              <button @click="excluir(autor)">
                 <img src="@/assets/img/lixo-icon.png" />
               </button>
             </td>

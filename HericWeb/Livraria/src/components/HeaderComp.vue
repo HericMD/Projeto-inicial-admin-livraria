@@ -6,7 +6,7 @@
       </span>
       <span>|</span>
       <span>
-        <RouterLink to="/livro">Livro</RouterLink>
+        <RouterLink to="/livros">Livro</RouterLink>
       </span>
       <span>|</span>
       <span>

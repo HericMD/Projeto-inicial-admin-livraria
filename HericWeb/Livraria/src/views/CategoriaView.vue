@@ -1,24 +1,34 @@
 <script>
-import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 export default {
   data() {
     return {
-      livros: [],
-      novo_categoria: "",
+      categorias: [],
+      novo_id: "",
+      novo_nome: "",
     };
   },
+  async created() {
+    const categorias = await axios.get("http://localhost:4000/categorias");
+    this.categorias = categorias.data;
+  },
+
   methods: {
-    add() {
-      const novo_id = uuidv4();
-      this.livros.push({
-        id: novo_id,
-        nome: this.novo_livro,
-        categoria: this.novo_categoria,
-      });
+    async add() {
+      const categoria = {
+        id: this.novo_id,
+        nome: this.novo_categoria,
+      };
+      const categoria_criado = await axios.post(
+        "http://localhost:4000/categorias",
+        categoria
+      );
+      this.categorias.push(categoria_criado.data);
     },
-    excluir(livro) {
-      const indice = this.livros.indexOf(livro);
-      this.livros.splice(indice, 1);
+    async excluir(categoria) {
+      await axios.delete(`http://localhost:4000/categorias/${categoria.id}`);
+      const indice = this.categorias.indexOf(categoria);
+      this.categorias.splice(indice, 1);
     },
   },
 };
@@ -27,14 +37,14 @@ export default {
 <template>
   <div class="container">
     <div class="title">
-      <h2>Gerenciamento de categorias de livro</h2>
+      <h2>Gerenciamento de categorias</h2>
     </div>
     <div class="form-input" @keydown.enter="add">
       <input type="text" placeholder="Categoria" v-model="novo_categoria" />
       <button @click="add">Adicionar Categoria</button>
     </div>
     <div class="list-table">
-      <table v-if="livros.length > 0">
+      <table v-if="categorias.length > 0">
         <thead>
           <tr>
             <th>ID</th>
@@ -43,11 +53,11 @@ export default {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="livro in livros" :key="livro.id">
-            <td>{{ livro.id }}</td>
-            <td>{{ livro.categoria }}</td>
+          <tr v-for="categoria in categorias" :key="categoria.id">
+            <td>{{ categoria.id }}</td>
+            <td>{{ categoria.nome }}</td>
             <td>
-              <button @click="excluir(livro)">
+              <button @click="excluir(categoria)">
                 <img src="@/assets/img/lixo-icon.png" />
               </button>
             </td>
