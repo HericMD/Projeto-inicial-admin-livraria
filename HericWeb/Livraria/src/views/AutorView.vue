@@ -22,12 +22,12 @@ export default {
         autor
       );
       this.autores.push(autor_criado.data);
-      },
     },
-    excluir(autor) {
-      const indice = this.autores.indexOf(autor);
-      this.autores.splice(indice, 1);
-    },
+  },
+  async excluir(autor) {
+    await axios.delete(`http://localhost:4000/autores/${autor.id}`);
+    const indice = this.autores.indexOf(autor);
+    this.autores.splice(indice, 1);
   },
 };
 </script>
