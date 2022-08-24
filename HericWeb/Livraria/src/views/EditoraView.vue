@@ -1,22 +1,32 @@
 <script>
+import EditorasApi from "@/api/editoras.js";
+const editorasApi = new EditorasApi();
 export default {
   data() {
     return {
-      livros: [],
-      novo_editora: "",
-      novo_site: "",
+      editoras: [],
+      editora: {},
     };
   },
+  async created() {
+    this.editoras = await editorasApi.buscarTodosOsEditoras();
+  },
   methods: {
-    add() {
-      this.livros.push({
-        site: this.novo_site,
-        editora: this.novo_editora,
-      });
+    async salvar() {
+      if (this.editora.id) {
+        await editorasApi.atualizarEditora(this.editora);
+      } else {
+        await editorasApi.adicionarEditora(this.editora);
+      }
+      this.editoras = await editorasApi.buscarTodosOsEditoras();
+      this.editora = {};
     },
-    excluir(livro) {
-      const indice = this.livros.indexOf(livro);
-      this.livros.splice(indice, 1);
+    async excluir(editora) {
+      await editorasApi.excluirEditora(editora.id);
+      this.editoras = await editorasApi.buscarTodosOsEditoras();
+    },
+    editar(editora) {
+      Object.assign(this.editora, editora);
     },
   },
 };

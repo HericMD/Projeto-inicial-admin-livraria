@@ -1,34 +1,32 @@
 <script>
-import axios from "axios";
+import CategoriasApi from "@/api/categorias.js";
+const categoriasApi = new CategoriasApi();
 export default {
   data() {
     return {
       categorias: [],
-      novo_id: "",
-      novo_nome: "",
+      categoria: {},
     };
   },
   async created() {
-    const categorias = await axios.get("http://localhost:4000/categorias");
-    this.categorias = categorias.data;
+    this.categorias = await categoriasApi.buscarTodosOsCategorias();
   },
-
   methods: {
-    async add() {
-      const categoria = {
-        id: this.novo_id,
-        nome: this.novo_categoria,
-      };
-      const categoria_criado = await axios.post(
-        "http://localhost:4000/categorias",
-        categoria
-      );
-      this.categorias.push(categoria_criado.data);
+    async salvar() {
+      if (this.categoria.id) {
+        await categoriasApi.atualizarCategoria(this.categoria);
+      } else {
+        await categoriasApi.adicionarCategoria(this.categoria);
+      }
+      this.categorias = await categoriasApi.buscarTodosOsCategorias();
+      this.categoria = {};
     },
     async excluir(categoria) {
-      await axios.delete(`http://localhost:4000/categorias/${categoria.id}`);
-      const indice = this.categorias.indexOf(categoria);
-      this.categorias.splice(indice, 1);
+      await categoriasApi.excluirCategoria(categoria.id);
+      this.categorias = await categoriasApi.buscarTodosOsCategorias();
+    },
+    editar(categoria) {
+      Object.assign(this.categoria, categoria);
     },
   },
 };
@@ -40,8 +38,8 @@ export default {
       <h2>Gerenciamento de categorias</h2>
     </div>
     <div class="form-input" @keydown.enter="add">
-      <input type="text" placeholder="Categoria" v-model="novo_categoria" />
-      <button @click="add">Adicionar Categoria</button>
+      <input type="text" placeholder="Categoria" v-model="categoria.nome" />
+      <button @click="salvar">Adicionar Categoria</button>
     </div>
     <div class="list-table">
       <table v-if="categorias.length > 0">
@@ -57,6 +55,7 @@ export default {
             <td>{{ categoria.id }}</td>
             <td>{{ categoria.nome }}</td>
             <td>
+              <button @click="editar">Edit</button>
               <button @click="excluir(categoria)">
                 <img src="@/assets/img/lixo-icon.png" />
               </button>
