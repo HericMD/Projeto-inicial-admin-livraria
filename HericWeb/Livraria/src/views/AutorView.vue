@@ -1,33 +1,33 @@
 <script>
-import axios from "axios";
+import AutoresApi from "@/api/autores.js";
+const autoresApi = new AutoresApi();
 export default {
   data() {
     return {
       autores: [],
-      novo_autor: "",
+      autor: {},
     };
   },
   async created() {
-    const autores = await axios.get("http://localhost:4000/autores");
-    this.autores = autores.data;
+    this.autores = await autoresApi.buscarTodosOsAutores();
   },
-
   methods: {
-    async add() {
-      const autor = {
-        nome: this.novo_autor,
-      };
-      const autor_criado = await axios.post(
-        "http://localhost:4000/autores",
-        autor
-      );
-      this.autores.push(autor_criado.data);
+    async salvar() {
+      if (this.autor.id) {
+        await autoresApi.atualizarAutor(this.autor);
+      } else {
+        await autoresApi.adicionarAutor(this.autor);
+      }
+      this.autores = await autoresApi.buscarTodosOsAutores();
+      this.autor = {};
     },
-  },
-  async excluir(autor) {
-    await axios.delete(`http://localhost:4000/autores/${autor.id}`);
-    const indice = this.autores.indexOf(autor);
-    this.autores.splice(indice, 1);
+    async excluir(autor) {
+      await autoresApi.excluirAutor(autor.id);
+      this.autores = await autoresApi.buscarTodosOsAutores();
+    },
+    editar(autor) {
+      Object.assign(this.autor, autor);
+    },
   },
 };
 </script>
@@ -35,23 +35,23 @@ export default {
 <template>
   <div class="container">
     <div class="title">
-      <h2>Gerenciamento de Autores</h2>
+      <h2>Gerenciamento de autor</h2>
     </div>
     <div class="form-input" @keydown.enter="add">
-      <input type="text" placeholder="Autores" v-model="novo_autor" />
-      <button @click="add">Adicionar Autor</button>
+      <input type="text" placeholder="Autor" v-model="autor.nome" />
+      <button @click="salvar">Adicionar Autor</button>
     </div>
     <div class="list-table">
       <table v-if="autores.length > 0">
         <thead>
           <tr>
-            <th>Autores</th>
+            <th>autor</th>
             <th>Remover</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="autor in autores" :key="autor.id">
-            <td>{{ autor.autor }}</td>
+            <td>{{ autor.nome }}</td>
             <td>
               <button @click="excluir(autor)">
                 <img src="@/assets/img/lixo-icon.png" />
@@ -62,5 +62,6 @@ export default {
       </table>
       <span v-else><h1>Lista vazia!</h1></span>
     </div>
+    <div></div>
   </div>
 </template>

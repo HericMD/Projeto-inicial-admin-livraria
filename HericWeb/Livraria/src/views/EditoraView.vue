@@ -38,25 +38,22 @@ export default {
       <h2>Gerenciamento de Editora</h2>
     </div>
     <div class="form-input" @keydown.enter="add">
-      <input type="text" placeholder="Editora" v-model="novo_editora" />
-      <input type="text" placeholder="Site" v-model="novo_site" />
-      <button @click="add">Adicionar Editora</button>
+      <input type="text" placeholder="Editora" v-model="editora.nome" />
+      <button @click="salvar">Adicionar Editora</button>
     </div>
     <div class="list-table">
-      <table v-if="livros.length > 0">
+      <table v-if="editoras.length > 0">
         <thead>
           <tr>
             <th>Editora</th>
-            <th>Site</th>
             <th>Remover</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="livro in livros" :key="livro.id">
-            <td>{{ livro.editora }}</td>
-            <td>{{ livro.site }}</td>
+          <tr v-for="editora in editoras" :key="editora.id">
+            <td>{{ editora.nome }}</td>
             <td>
-              <button @click="excluir(livro)">
+              <button @click="excluir(editora)">
                 <img src="@/assets/img/lixo-icon.png" />
               </button>
             </td>
