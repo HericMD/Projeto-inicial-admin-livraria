@@ -16,7 +16,7 @@ export default class livrosApi {
 
   async adicionarLivro(livro) {
     const response = await axios.post(
-      "http://projeto-inicial-admin-livraria.herokuapp.com/livros",
+      "https://projeto-inicial-admin-livraria.herokuapp.com/livros",
       livro
     );
     return response.data;

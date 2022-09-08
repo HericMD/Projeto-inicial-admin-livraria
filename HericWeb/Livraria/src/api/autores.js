@@ -9,14 +9,14 @@ export default class autoresApi {
 
   async buscarAutor(id) {
     const response = await axios.get(
-      `httpss://projeto-inicial-admin-livraria.herokuapp.com/autores/${id}`
+      `https://projeto-inicial-admin-livraria.herokuapp.com/autores/${id}`
     );
     return response.data;
   }
 
   async adicionarAutor(autor) {
     const response = await axios.post(
-      "httpss://projeto-inicial-admin-livraria.herokuapp.com/autores",
+      "https://projeto-inicial-admin-livraria.herokuapp.com/autores",
       autor
     );
     return response.data;
