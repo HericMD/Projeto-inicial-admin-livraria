@@ -55,9 +55,11 @@ export default {
             <td>{{ categoria.id }}</td>
             <td>{{ categoria.nome }}</td>
             <td>
-              <button @click="editar">Edit</button>
               <button @click="excluir(categoria)">
                 <img src="@/assets/img/lixo-icon.png" />
+              </button>
+              <button @click="editar(autor)">
+                <img src="@/assets/img/edit-icon.png" />
               </button>
             </td>
           </tr>

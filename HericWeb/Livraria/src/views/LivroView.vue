@@ -80,6 +80,9 @@ export default {
               <button @click="excluir(livro)">
                 <img src="@/assets/img/lixo-icon.png" />
               </button>
+              <button @click="editar(autor)">
+                <img src="@/assets/img/edit-icon.png" />
+              </button>
             </td>
           </tr>
         </tbody>

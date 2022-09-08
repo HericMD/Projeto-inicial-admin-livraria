@@ -46,7 +46,7 @@ export default {
         <thead>
           <tr>
             <th>autor</th>
-            <th>Remover</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -55,6 +55,9 @@ export default {
             <td>
               <button @click="excluir(autor)">
                 <img src="@/assets/img/lixo-icon.png" />
+              </button>
+              <button @click="editar(autor)">
+                <img src="@/assets/img/edit-icon.png" />
               </button>
             </td>
           </tr>
