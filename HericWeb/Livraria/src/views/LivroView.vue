@@ -12,7 +12,9 @@ export default {
   },
 
   async created() {
-    const livros = await axios.get("http://localhost:4000/livros");
+    const livros = await axios.get(
+      "https://projeto-inicial-admin-livraria.herokuapp.com/livros"
+    );
     this.livros = livros.data;
   },
 
@@ -25,13 +27,15 @@ export default {
         nome: this.novo_nome,
       };
       const livro_criado = await axios.post(
-        "http://localhost:4000/livros",
+        "https://projeto-inicial-admin-livraria.herokuapp.com/livros",
         livro
       );
       this.livros.push(livro_criado.data);
     },
     async excluir(livro) {
-      await axios.delete(`http://localhost:4000/livros/${livro.id}`);
+      await axios.delete(
+        `https://projeto-inicial-admin-livraria.herokuapp.com/livros/${livro.id}`
+      );
       const indice = this.livros.indexOf(livro);
       this.livros.splice(indice, 1);
     },
